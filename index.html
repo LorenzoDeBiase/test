@@ -69,26 +69,42 @@
     </header>
 
     <main>
-        <p>Enter a number and click the button to calculate its square root.</p>
+        <p>Enter a number and click the button to calculate its result using the sourcerer function.</p>
         <input type="number" id="numberInput" placeholder="Enter a number">
         <button id="calculateButton">Calculate</button>
         <p id="result" class="result"></p>
     </main>
 
     <footer>
-        <p>2024 Binomial Sourcerer</p>
+        <p>&copy; 2024 Binomial Sourcerer</p>
     </footer>
 
     <script>
-        document.getElementById('calculateButton').addEventListener('click', function() {
+        document.getElementById('calculateButton').addEventListener('click', async function() {
             const numberInput = document.getElementById('numberInput').value;
             const resultElement = document.getElementById('result');
 
             if (numberInput === '' || isNaN(numberInput)) {
                 resultElement.textContent = 'Please enter a valid number.';
             } else {
-                const squareRoot = Math.sqrt(parseFloat(numberInput));
-                resultElement.textContent = `The square root of ${numberInput} is ${squareRoot.toFixed(2)}.`;
+                try {
+                    const response = await fetch('/calculate', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({ number: parseFloat(numberInput) }),
+                    });
+
+                    if (response.ok) {
+                        const data = await response.json();
+                        resultElement.textContent = `The result is ${data.result}.`;
+                    } else {
+                        resultElement.textContent = 'Error calculating the result.';
+                    }
+                } catch (error) {
+                    resultElement.textContent = 'An error occurred: ' + error.message;
+                }
             }
         });
     </script>
