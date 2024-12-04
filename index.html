@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sito Semplice</title>
+    <title>Binomial Sourcerer</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -48,27 +48,48 @@
         button:hover {
             background-color: #0056b3;
         }
+
+        input {
+            padding: 0.5rem;
+            font-size: 1rem;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            margin-right: 0.5rem;
+        }
+
+        .result {
+            margin-top: 1rem;
+            font-weight: bold;
+        }
     </style>
 </head>
 <body>
     <header>
-        <h1>Benvenuto sul mio sito!</h1>
+        <h1>Binomial Sourcerer</h1>
     </header>
 
     <main>
-        <p>Clicca il bottone per vedere un messaggio interattivo.</p>
-        <button id="messageButton">Mostra messaggio</button>
-        <p id="message" style="margin-top: 1rem; font-weight: bold;"></p>
+        <p>Enter a number and click the button to calculate its square root.</p>
+        <input type="number" id="numberInput" placeholder="Enter a number">
+        <button id="calculateButton">Calculate</button>
+        <p id="result" class="result"></p>
     </main>
 
     <footer>
-        <p>&copy; 2024 Sito Semplice</p>
+        <p>&copy; 2024 Binomial Sourcerer</p>
     </footer>
 
     <script>
-        document.getElementById('messageButton').addEventListener('click', function() {
-            const messageElement = document.getElementById('message');
-            messageElement.textContent = 'Grazie per aver cliccato!';
+        document.getElementById('calculateButton').addEventListener('click', function() {
+            const numberInput = document.getElementById('numberInput').value;
+            const resultElement = document.getElementById('result');
+
+            if (numberInput === '' || isNaN(numberInput)) {
+                resultElement.textContent = 'Please enter a valid number.';
+            } else {
+                const squareRoot = Math.sqrt(parseFloat(numberInput));
+                resultElement.textContent = `The square root of ${numberInput} is ${squareRoot.toFixed(2)}.`;
+            }
         });
     </script>
 </body>
