@@ -100,7 +100,7 @@
                         const data = await response.json();
                         resultElement.textContent = `The result is ${data.result}.`;
                     } else {
-                        resultElement.textContent = 'Error calculating the result.';
+                        resultElement.textContent = 'Error calculating the result.(still to be implemented)';
                     }
                 } catch (error) {
                     resultElement.textContent = 'An error occurred: ' + error.message;
